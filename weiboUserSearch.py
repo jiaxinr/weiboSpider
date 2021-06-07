@@ -18,7 +18,7 @@ sheet = data.sheet_by_index(0)
 
 #print(sheet.nrows)
 
-for cnt in range(40,43):#todo 输入希望选取的范围
+for cnt in range(1,132):#todo 输入希望选取的范围
     #print(sheet.cell_value(cnt+1, 0))
     namelist.append(sheet.cell_value(cnt+1,0))#todo 括号内的参数为(行,列)，可根据需要调整
 
@@ -26,7 +26,7 @@ for cnt in range(40,43):#todo 输入希望选取的范围
 #exit()
 
 
-#namelist = ["怪你過分美麓","pixie_媛"]  # todo 手动输入搜索用户名合集，如使用将会覆盖上面从表格中导入的数据，使用时请将此行最开始的“#”删去
+#namelist = ["怪你過分美麓","pixie_媛"]  #todo 手动输入搜索用户名合集，如使用将会覆盖上面从表格中导入的数据，使用时请将此行最开始的“#”删去
 nameNum = len(namelist)
 book = xlwt.Workbook(encoding="utf- 8",style_compression=0)  # 创建workbook对象
 seet = book.add_sheet('sex',cell_overwrite_ok=True)  # 创建工作表
@@ -35,11 +35,13 @@ def weiboSearch():
     # 爬取网页 逐一解析数据 保存数据
     baseurl1="https://s.weibo.com/user?q="
     baseurl2="&Refer=SUer_box"
-    savepath = ".\\新浪搜索try2.xls"#todo 结果保存路径，可自定义
+    savepath = ".\\新浪搜索try3.xls"#todo 结果保存路径，可自定义
 
     for i in range(0, nameNum):
         datalist = getData(baseurl1,baseurl2,i)
         saveData(datalist,i)
+        if(i%10==0):
+            print("本次已累计爬取用户数量为："+str(i))
 
     book.save(savepath)
 
